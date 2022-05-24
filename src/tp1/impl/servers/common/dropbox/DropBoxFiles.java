@@ -107,7 +107,7 @@ public class DropBoxFiles implements Files {
         createFile.addHeader(DROPBOX_API_ARG, json.toJson(
                     new CreateFileArgs(ROOT + fileId,OVERWRITE ,false,false,false)));
 
-        createFile.setPayload(json.toJson(data).getBytes());
+        createFile.setPayload(data);
         return execute(createFile);
     }
 
@@ -176,9 +176,8 @@ public class DropBoxFiles implements Files {
     private Result.ErrorCode statusToErrorCode(jakarta.ws.rs.core.Response.Status status) {
         return switch (status){
             case OK, NO_CONTENT -> Result.ErrorCode.OK;
-            case CONFLICT -> Result.ErrorCode.CONFLICT;
+            case CONFLICT ,NOT_FOUND-> Result.ErrorCode.NOT_FOUND;
             case FORBIDDEN -> Result.ErrorCode.FORBIDDEN;
-            case NOT_FOUND -> Result.ErrorCode.NOT_FOUND;
             case BAD_REQUEST -> Result.ErrorCode.BAD_REQUEST;
             case NOT_IMPLEMENTED -> Result.ErrorCode.NOT_IMPLEMENTED;
             default -> Result.ErrorCode.INTERNAL_ERROR;
