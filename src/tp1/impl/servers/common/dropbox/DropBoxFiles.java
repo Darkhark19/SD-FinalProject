@@ -20,9 +20,9 @@ import java.util.List;
 
 public class DropBoxFiles implements Files {
 
-    private final String apiKey ;
-    private final String apiSecret;
-    private final String accessTokenStr;
+    private String apiKey ;
+    private String apiSecret;
+    private String accessTokenStr;
 
     private static final String CREATE_FOLDER_V2_URL = "https://api.dropboxapi.com/2/files/create_folder_v2";
     private static final String DOWNLOAD_URL = "https://content.dropboxapi.com/2/files/download";
@@ -101,10 +101,10 @@ public class DropBoxFiles implements Files {
     @Override
     public Result<Void> writeFile(String fileId, byte[] data, String token) {
         fileId = fileId.replace( DELIMITER, "/");
-        var createFile = new OAuthRequest(Verb.POST,DOWNLOAD_URL );
+        var createFile = new OAuthRequest(Verb.POST,UPLOAD_FILE_URL );
         createFile.addHeader(CONTENT_TYPE_HDR, OCTET_STREAM_CONTENT_TYPE);
 
-        createFile.addHeader(UPLOAD_FILE_URL, json.toJson(
+        createFile.addHeader(DROPBOX_API_ARG, json.toJson(
                     new CreateFileArgs(ROOT + fileId,OVERWRITE ,false,false,false)));
 
         createFile.setPayload(json.toJson(data).getBytes());
