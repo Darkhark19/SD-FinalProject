@@ -16,7 +16,6 @@ public class FilesResources extends RestResource implements RestFiles {
 
 	public FilesResources() {
 		impl = new JavaFiles();
-		//impl = new DropBoxFiles();
 	}
 
 	@Override
