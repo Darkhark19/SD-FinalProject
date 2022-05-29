@@ -12,7 +12,7 @@ import tp1.api.service.java.Directory;
 import tp1.api.service.java.Result;
 import tp1.api.service.rest.RestDirectory;
 
-public class RestDirectoryClient extends RestClient implements Directory {
+	public class RestDirectoryClient extends RestClient implements Directory {
 
 
 	private static final String SHARE = "share";

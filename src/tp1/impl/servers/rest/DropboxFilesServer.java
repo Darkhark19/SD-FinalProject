@@ -2,6 +2,7 @@ package tp1.impl.servers.rest;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import tp1.api.service.java.Files;
+import tp1.impl.servers.rest.util.CustomLoggingFilter;
 import tp1.impl.servers.rest.util.GenericExceptionMapper;
 import util.Debug;
 import util.Token;
@@ -25,6 +26,7 @@ public class DropboxFilesServer extends AbstractRestServer {
     void registerResources(ResourceConfig config) {
         config.register(new DropboxFilesResource(apiKey,apiSecret,accessTokenStr));
         config.register( GenericExceptionMapper.class );
+        config.register( CustomLoggingFilter.class);
     }
     //arg0 - domain, arg1 - boolean , arg2 - serverSecret, arg3 - APIkey, arg4 - APISecret, arg5 -AccessToken,
     public static void main(String[] args) throws Exception {
@@ -32,7 +34,8 @@ public class DropboxFilesServer extends AbstractRestServer {
         Debug.setLogLevel( Level.INFO, Debug.TP1);
 
         Token.set( args.length == 0 ? "" : args[0] );
-
-        new DropboxFilesServer(PORT, args[2],args[3],args[4]).start();
+        System.out.println(args[3]+" "+args[4]+" "+args[5]);
+        Log.info(args[3]+" "+args[4]+" "+args[5]);
+        new DropboxFilesServer(PORT, args[3],args[4],args[5]).start();
     }
 }

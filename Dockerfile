@@ -15,4 +15,4 @@ COPY *.*ks /home/sd/
 
 # run Discovery when starting the docker image
 CMD ["java", "-cp", "/home/sd/sd2122.jar", \
-"-Djavax.net.ssl.keyStore=users.ks","-Djavax.net.ssl.keyStorePassword=123users", "tp1.impl.servers.rest.UsersRestServer" ,"token"]
+"tp1.impl.servers.rest.UsersRestServer" ]

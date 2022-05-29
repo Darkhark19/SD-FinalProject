@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import tp1.api.service.java.Users;
+import tp1.impl.servers.rest.util.CustomLoggingFilter;
 import tp1.impl.servers.rest.util.GenericExceptionMapper;
 import util.Debug;
 import util.Token;
@@ -25,7 +26,7 @@ public class UsersRestServer extends AbstractRestServer {
 	void registerResources(ResourceConfig config) {
 		config.register( UsersResources.class ); 
 		config.register( GenericExceptionMapper.class);
-//		config.register( CustomLoggingFilter.class);
+		config.register( CustomLoggingFilter.class);
 	}
 	
 	

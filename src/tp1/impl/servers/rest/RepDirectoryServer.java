@@ -3,6 +3,7 @@ package tp1.impl.servers.rest;
 import org.glassfish.jersey.server.ResourceConfig;
 import tp1.api.service.java.Directory;
 import tp1.impl.servers.common.kafka.RepDirectory;
+import tp1.impl.servers.rest.util.CustomLoggingFilter;
 import tp1.impl.servers.rest.util.GenericExceptionMapper;
 import util.Debug;
 import util.Token;
@@ -22,6 +23,7 @@ public class RepDirectoryServer extends AbstractRestServer{
     void registerResources(ResourceConfig config) {
         config.register( RepDirectoryResource.class );
         config.register( GenericExceptionMapper.class );
+        config.register( CustomLoggingFilter.class);
     }
 
     public static void main(String[] args) throws Exception {

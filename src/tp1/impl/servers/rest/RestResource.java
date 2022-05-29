@@ -6,6 +6,7 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import tp1.api.service.java.Result;
+import tp1.api.service.rest.RestRepDirectory;
 
 public class RestResource {
 
@@ -42,7 +43,6 @@ public class RestResource {
 			return result.value() == null ? Status.NO_CONTENT : Status.OK;
 		case REDIRECT:
 			doRedirect(result);
-
 		default:
 			return Status.INTERNAL_SERVER_ERROR;
 		}
@@ -52,4 +52,14 @@ public class RestResource {
 		var location = URI.create(result.errorValue());
 		throw new WebApplicationException(Response.temporaryRedirect(location).build());
 	}
+	protected <T> T repThrow(Result<T> result, Long version) {
+		if (result.isOK())
+			throw new WebApplicationException(Response.ok()
+					.header(RestRepDirectory.HEADER_VERSION,version )
+					.entity(result.value())
+					.build());
+		else
+			throw new WebApplicationException(statusCode(result));
+	}
+
 }

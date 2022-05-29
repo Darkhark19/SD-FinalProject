@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import tp1.api.service.java.Files;
+import tp1.impl.servers.rest.util.CustomLoggingFilter;
 import tp1.impl.servers.rest.util.GenericExceptionMapper;
 import util.Debug;
 import util.Token;
@@ -15,7 +16,7 @@ public class FilesRestServer extends AbstractRestServer {
 	
 	private static Logger Log = Logger.getLogger(FilesRestServer.class.getName());
 
-	private String domain;
+
 	FilesRestServer( int port ) {
 		super(Log, Files.SERVICE_NAME, port);
 	}
@@ -24,7 +25,7 @@ public class FilesRestServer extends AbstractRestServer {
 	void registerResources(ResourceConfig config) {
 		config.register( FilesResources.class ); 
 		config.register( GenericExceptionMapper.class );
-//		config.register( CustomLoggingFilter.class);
+		config.register( CustomLoggingFilter.class);
 	}
 	
 	public static void main(String[] args) throws Exception {

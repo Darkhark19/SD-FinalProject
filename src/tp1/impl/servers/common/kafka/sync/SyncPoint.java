@@ -13,7 +13,7 @@ public class SyncPoint<T> {
 		return (SyncPoint<T>)instance;
 	}
 
-	private long version = -1L;
+	private long version;
 	private Map<Long, T> results;
 
 	public SyncPoint() {
