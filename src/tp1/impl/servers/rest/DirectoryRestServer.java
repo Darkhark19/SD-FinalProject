@@ -33,7 +33,7 @@ public class DirectoryRestServer extends AbstractRestServer {
 		Debug.setLogLevel( Level.INFO, Debug.TP1);
 
 		Token.set( args.length > 0 ? args[0] : "");
-
+		System.out.println(args[0]);
 		new DirectoryRestServer(PORT).start();
 	}	
 }

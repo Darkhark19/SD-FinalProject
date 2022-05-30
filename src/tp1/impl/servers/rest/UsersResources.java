@@ -23,14 +23,14 @@ public class UsersResources extends RestResource implements RestUsers {
 	
 	@Override
 	public String createUser(User user) {
-		Log.info(String.format("REST createUser: user = %s\n", user));
+		//Log.info(String.format("REST createUser: user = %s\n", user));
 
 		return resultOrThrow( impl.createUser( user ));
 	}
 
 	@Override
 	public User getUser(String userId, String password) {
-		Log.info(String.format("REST getUser: userId = %s password=%s\n", userId, password));
+		//Log.info(String.format("REST getUser: userId = %s password=%s\n", userId, password));
 
 		return resultOrThrow( impl.getUser(userId, password));
 	}
@@ -38,7 +38,7 @@ public class UsersResources extends RestResource implements RestUsers {
 
 	@Override
 	public User updateUser(String userId, String password, User user) {
-		Log.info(String.format("REST updateUser: userId = %s, user = %s\n", userId, user));
+		//Log.info(String.format("REST updateUser: userId = %s, user = %s\n", userId, user));
 
 		return resultOrThrow( impl.updateUser(userId, password, user));
 	}
@@ -46,14 +46,14 @@ public class UsersResources extends RestResource implements RestUsers {
 
 	@Override
 	public User deleteUser(String userId, String password) {
-		Log.info(String.format("REST deleteUser: userId = %s\n", userId));
+		//Log.info(String.format("REST deleteUser: userId = %s\n", userId));
 		
 		return resultOrThrow( impl.deleteUser(userId, password));
 	}
 
 	@Override
 	public List<User> searchUsers(String pattern) {
-		Log.info(String.format("REST searchUsers: pattern = %s", pattern));
+		//Log.info(String.format("REST searchUsers: pattern = %s", pattern));
 		
 		return resultOrThrow( impl.searchUsers(pattern));
 	}

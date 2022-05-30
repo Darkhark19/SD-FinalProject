@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RepDirectoryServer extends AbstractRestServer{
-    public static final int PORT = 4567;
+    public static final int PORT = 8888;
     private static Logger Log = Logger.getLogger(RepDirectoryServer.class.getName());
 
     RepDirectoryServer( int port) {
@@ -31,7 +31,6 @@ public class RepDirectoryServer extends AbstractRestServer{
         Debug.setLogLevel( Level.INFO, Debug.TP1);
 
         Token.set( args.length == 0 ? "" : args[0] );
-
         new RepDirectoryServer(PORT).start();
     }
 }

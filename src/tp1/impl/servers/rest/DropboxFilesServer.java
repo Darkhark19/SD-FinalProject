@@ -14,17 +14,19 @@ public class DropboxFilesServer extends AbstractRestServer {
     private static Logger Log = Logger.getLogger(DropboxFilesServer.class.getName());
     public static final int PORT = 5678;
     private final String apiKey;
+    private final boolean flag;
     private final String apiSecret;
     private final String accessTokenStr;
-    DropboxFilesServer(int port, String key, String secret, String token) {
+    DropboxFilesServer(int port,boolean flag, String key, String secret, String token) {
         super(Log, Files.SERVICE_NAME, port);
         this.accessTokenStr = token;
         this.apiKey = key;
         this.apiSecret = secret;
+        this.flag = flag;
     }
     @Override
     void registerResources(ResourceConfig config) {
-        config.register(new DropboxFilesResource(apiKey,apiSecret,accessTokenStr));
+        config.register(new DropboxFilesResource(flag,apiKey,apiSecret,accessTokenStr));
         config.register( GenericExceptionMapper.class );
         config.register( CustomLoggingFilter.class);
     }
@@ -34,8 +36,11 @@ public class DropboxFilesServer extends AbstractRestServer {
         Debug.setLogLevel( Level.INFO, Debug.TP1);
 
         Token.set( args.length == 0 ? "" : args[0] );
-        System.out.println(args[3]+" "+args[4]+" "+args[5]);
-        Log.info(args[3]+" "+args[4]+" "+args[5]);
-        new DropboxFilesServer(PORT, args[3],args[4],args[5]).start();
+        System.out.println(args[0]);
+        System.out.println(args[1]);
+        System.out.println(args[2]);
+        System.out.println(args[3]);
+        System.out.println(args[4]);
+        new DropboxFilesServer(PORT,Boolean.parseBoolean(args[0]),args[2],args[3],args[4]).start();
     }
 }

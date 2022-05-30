@@ -1,14 +1,6 @@
 package tp1.api.service.rest;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.DefaultValue;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 @Path(RestFiles.PATH)
@@ -31,7 +23,7 @@ public interface RestFiles {
 	@POST
 	@Path("/{" + FILE_ID + "}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
-	void writeFile(@PathParam(FILE_ID) String fileId, byte[] data, @QueryParam(TOKEN) @DefaultValue("") String token);
+	void writeFile( @PathParam(FILE_ID) String fileId, byte[] data, @QueryParam(TOKEN) @DefaultValue("") String token);
 
 	/**
 	 * Delete an existing file.

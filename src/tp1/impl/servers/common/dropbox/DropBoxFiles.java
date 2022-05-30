@@ -14,8 +14,11 @@ import tp1.api.service.java.Result;
 import jakarta.ws.rs.core.Response.Status;
 import tp1.impl.servers.common.dropbox.msgs.*;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class DropBoxFiles implements Files {
@@ -43,8 +46,9 @@ public class DropBoxFiles implements Files {
     private static final String ROOT = "/tmp/";
     static final String DELIMITER = "$$$";
     private static final String OVERWRITE = "overwrite";
+    private static final String TMP = "/tmp";
 
-    public DropBoxFiles(String key, String secret, String token) {
+    public DropBoxFiles(boolean flag, String key, String secret, String token) {
         json = new Gson();
         /*this.accessTokenStr = token;
         this.apiKey = key;
@@ -52,19 +56,47 @@ public class DropBoxFiles implements Files {
         accessToken = new OAuth2AccessToken(token);
         service = new ServiceBuilder(key).apiSecret(secret).build(DropboxApi20.INSTANCE);
 
-        var createFolder = new OAuthRequest(Verb.POST, CREATE_FOLDER_V2_URL);
-        createFolder.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
+        if(flag) {
+            var delete = new OAuthRequest(Verb.POST, DELETE_V2_URL);
+            delete.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
+            delete.setPayload(json.toJson(new PathArgs(TMP)));
+            service.signRequest(accessToken, delete);
+            try {
+                Response r = service.execute(delete);
 
-        createFolder.setPayload(json.toJson(new CreateFolderV2Args(ROOT, false)));
+                if (r.getCode() != Status.OK.getStatusCode())
+                    throw new RuntimeException(String.format("Failed to delete directory: %s, Status: %d, \nReason: %s\n", ROOT, r.getCode(), r.getBody()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-        service.signRequest(accessToken, createFolder);
-        try {
-            Response r = service.execute(createFolder);
-            if (r.getCode() != Status.OK.getStatusCode())
-                throw new RuntimeException(String.format("Failed to create directory: %s, Status: %d, \nReason: %s\n", ROOT, r.getCode(), r.getBody()));
-        } catch (Exception e) {
-            e.printStackTrace();
+            var createFolder = new OAuthRequest(Verb.POST, CREATE_FOLDER_V2_URL);
+            createFolder.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
+            createFolder.setPayload(json.toJson(new CreateFolderV2Args(TMP, false)));
+            service.signRequest(accessToken, createFolder);
+            Response r = null;
+            try {
+                r = service.execute(createFolder);
+                if (r.getCode() != Status.OK.getStatusCode())
+                    throw new RuntimeException(String.format("Failed to create directory: %s, Status: %d, \nReason: %s\n", ROOT, r.getCode(), r.getBody()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+    }
+
+    @Override
+    public Result<Void> writeFile(String fileId, byte[] data, String token) {
+        fileId = fileId.replace( DELIMITER, "/");
+        var createFile = new OAuthRequest(Verb.POST,UPLOAD_FILE_URL );
+        createFile.addHeader(CONTENT_TYPE_HDR, OCTET_STREAM_CONTENT_TYPE);
+
+        createFile.addHeader(DROPBOX_API_ARG, json.toJson(
+                new CreateFileArgs(ROOT + fileId,OVERWRITE ,false,false,false)));
+
+        createFile.setPayload(json.toJson(data).getBytes());
+        return execute(createFile);
     }
     @Override
     public Result<byte[]> getFile(String fileId, String token) {
@@ -98,25 +130,13 @@ public class DropBoxFiles implements Files {
         return execute(delete);
     }
 
-    @Override
-    public Result<Void> writeFile(String fileId, byte[] data, String token) {
-        fileId = fileId.replace( DELIMITER, "/");
-        var createFile = new OAuthRequest(Verb.POST,UPLOAD_FILE_URL );
-        createFile.addHeader(CONTENT_TYPE_HDR, OCTET_STREAM_CONTENT_TYPE);
-
-        createFile.addHeader(DROPBOX_API_ARG, json.toJson(
-                    new CreateFileArgs(ROOT + fileId,OVERWRITE ,false,false,false)));
-
-        createFile.setPayload(data);
-        return execute(createFile);
-    }
 
     @Override
     public Result<Void> deleteUserFiles(String userId, String token) {
         List<String> directoryContents = new ArrayList<String>();
         var listDirectory = new OAuthRequest(Verb.POST, LIST_FOLDER_URL);
         listDirectory.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
-        listDirectory.setPayload(json.toJson(new ListFolderArgs(ROOT)));
+        listDirectory.setPayload(json.toJson(new ListFolderArgs(ROOT + userId)));
 
         service.signRequest(accessToken, listDirectory);
         try {
@@ -150,8 +170,17 @@ public class DropBoxFiles implements Files {
             e.printStackTrace();
             return Result.error(Result.ErrorCode.INTERNAL_ERROR);
         }
+        for(String fileName : directoryContents){
+            var delete = new OAuthRequest(Verb.POST, DELETE_V2_URL);
+            delete.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
+            delete.setPayload(json.toJson(new PathArgs(ROOT + userId + "/"+fileName)));
+            service.signRequest(accessToken, delete);
+            try {
+                service.execute(delete);
+            } catch (Exception e){
 
-        directoryContents.removeIf(e -> e.contains(userId));
+            }
+        }
         return Result.ok();
     }
 

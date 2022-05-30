@@ -77,7 +77,7 @@ public class Discovery {
 	 */
 	
 	public void listener() {
-		Log.info(String.format("Starting discovery on multicast group: %s, port: %d\n", DISCOVERY_ADDR.getAddress(), DISCOVERY_ADDR.getPort()));
+		//Log.info(String.format("Starting discovery on multicast group: %s, port: %d\n", DISCOVERY_ADDR.getAddress(), DISCOVERY_ADDR.getPort()));
 
 		final int MAX_DATAGRAM_SIZE = 65535;
 
@@ -112,7 +112,7 @@ public class Discovery {
 	
 	
 	public URI[] findUrisOf(String serviceName, int minRepliesNeeded) {
-		Log.info(String.format("Discovery.findUrisOf( serviceName: %s, minRequired: %d\n", serviceName, minRepliesNeeded));
+		//Log.info(String.format("Discovery.findUrisOf( serviceName: %s, minRequired: %d\n", serviceName, minRepliesNeeded));
 		
 		for(;;) {
 			var results = discoveries.get( serviceName );
