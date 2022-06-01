@@ -36,11 +36,6 @@ public class DropboxFilesServer extends AbstractRestServer {
         Debug.setLogLevel( Level.INFO, Debug.TP1);
 
         Token.set( args.length == 0 ? "" : args[0] );
-        System.out.println(args[0]);
-        System.out.println(args[1]);
-        System.out.println(args[2]);
-        System.out.println(args[3]);
-        System.out.println(args[4]);
         new DropboxFilesServer(PORT,Boolean.parseBoolean(args[0]),args[2],args[3],args[4]).start();
     }
 }

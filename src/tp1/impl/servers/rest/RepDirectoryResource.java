@@ -5,7 +5,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import tp1.api.FileInfo;
 import tp1.api.service.java.Directory;
 import tp1.api.service.java.Result;
-import tp1.api.service.rest.RestDirectory;
 import tp1.api.service.rest.RestRepDirectory;
 import tp1.impl.servers.common.JavaDirectory;
 import tp1.impl.servers.common.kafka.KafkaSubscriber;
@@ -40,16 +39,16 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
     final Directory senderImpl;
     final Directory receiverImpl;
     final KafkaSubscriber receiver;
-    final SyncPoint sync = SyncPoint.getInstance();
+    final SyncPoint<Object> sync = SyncPoint.getInstance();
     final Gson json;
 
-    @SuppressWarnings("unchecked")
+
     public RepDirectoryResource() {
         json = new Gson();
         senderImpl = new RepDirectory();
         receiverImpl = new JavaDirectory();
         List<String> topic = new LinkedList<>();
-        topic.add("");
+        topic.add(TOPIC);
         this.receiver = KafkaSubscriber.createSubscriber(KAFKA_BROKERS, topic, FROM_BEGINNING);
 
         this.receiver.start(false, new RecordProcessor() {
@@ -65,61 +64,61 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
                 String pass;
                 String accUserId;
                 String userIdShare;
-                switch (key){
-                    case WRITE :
+                switch (key) {
+                    case WRITE -> {
                         filename = op[0].toString();
                         data = op[1].toString().getBytes();
                         userId = op[2].toString();
                         pass = op[3].toString();
-                        Result<FileInfo> write = senderImpl.writeFile(filename,data,userId,pass);
-                        sync.setResult(r.offset(),write);
-                        break;
-                    case DELETE:
+                        Result<FileInfo> write = senderImpl.writeFile(filename, data, userId, pass);
+                        sync.setResult(r.offset(), write);
+                    }
+                    case DELETE -> {
                         filename = op[0].toString();
                         userId = op[1].toString();
                         pass = op[2].toString();
-                        Result<Void> delete = senderImpl.deleteFile(filename,userId,pass);
-                        sync.setResult(r.offset(),delete);
-                        break;
-                    case GET:
+                        Result<Void> delete = senderImpl.deleteFile(filename, userId, pass);
+                        sync.setResult(r.offset(), delete);
+                    }
+                    case GET -> {
                         filename = op[0].toString();
                         userId = op[1].toString();
                         accUserId = op[2].toString();
                         pass = op[3].toString();
-                        Result<byte[]> get = senderImpl.getFile(filename,userId,accUserId,pass);
-                        sync.setResult(r.offset(),get);
-                        break;
-                    case SHARE:
+                        Result<byte[]> get = senderImpl.getFile(filename, userId, accUserId, pass);
+                        sync.setResult(r.offset(), get);
+                    }
+                    case SHARE -> {
                         filename = op[0].toString();
                         userId = op[1].toString();
                         userIdShare = op[2].toString();
                         pass = op[3].toString();
-                        Result<Void> share = senderImpl.shareFile(filename,userId,userIdShare,pass);
-                        sync.setResult(r.offset(),share);
-                        break;
-                    case UNSHARE:
+                        Result<Void> share = senderImpl.shareFile(filename, userId, userIdShare, pass);
+                        sync.setResult(r.offset(), share);
+                    }
+                    case UNSHARE -> {
                         filename = op[0].toString();
                         userId = op[1].toString();
                         userIdShare = op[2].toString();
                         pass = op[3].toString();
-                        Result<Void> unshare = senderImpl.unshareFile(filename,userId,userIdShare,pass);
-                        sync.setResult(r.offset(),unshare);
-                        break;
-                    case LIST:
+                        Result<Void> unshare = senderImpl.unshareFile(filename, userId, userIdShare, pass);
+                        sync.setResult(r.offset(), unshare);
+                    }
+                    case LIST -> {
                         userId = op[0].toString();
                         pass = op[1].toString();
-                        Result<List<FileInfo>> list = senderImpl.lsFile(userId,pass);
-                        sync.setResult(r.offset(),list);
-                        break;
-                    case DELETES:
+                        Result<List<FileInfo>> list = senderImpl.lsFile(userId, pass);
+                        sync.setResult(r.offset(), list);
+                    }
+                    case DELETES -> {
                         userId = op[0].toString();
                         pass = op[1].toString();
                         String token = op[2].toString();
-                        Result<Void> deletes = senderImpl.deleteUserFiles(userId,pass,token);
-                        sync.setResult(r.offset(),deletes);
-                        break;
-                    default:
-                        break;
+                        Result<Void> deletes = senderImpl.deleteUserFiles(userId, pass, token);
+                        sync.setResult(r.offset(), deletes);
+                    }
+                    default -> {
+                    }
                 }
             }
         });
