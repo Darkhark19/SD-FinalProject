@@ -7,9 +7,7 @@ import tp1.api.service.java.Directory;
 import tp1.api.service.java.Result;
 import tp1.api.service.rest.RestRepDirectory;
 import tp1.impl.servers.common.JavaDirectory;
-import tp1.impl.servers.common.kafka.KafkaSubscriber;
-import tp1.impl.servers.common.kafka.RecordProcessor;
-import tp1.impl.servers.common.kafka.RepDirectory;
+import tp1.impl.servers.common.kafka.*;
 import tp1.api.service.java.Result.ErrorCode;
 import tp1.impl.servers.common.kafka.sync.SyncPoint;
 
@@ -41,23 +39,28 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
     final KafkaSubscriber receiver;
     final SyncPoint<Object> sync = SyncPoint.getInstance();
     final Gson json;
+    final ReplicationManager replicationManager;
 
 
-    public RepDirectoryResource() {
+    public RepDirectoryResource(ReplicationManager rep) {
+        System.out.println("ajsbdkjaskd");
         json = new Gson();
         senderImpl = new RepDirectory();
         receiverImpl = new JavaDirectory();
         List<String> topic = new LinkedList<>();
         topic.add(TOPIC);
+        System.out.println("aqui akjbsdkabskd");
         this.receiver = KafkaSubscriber.createSubscriber(KAFKA_BROKERS, topic, FROM_BEGINNING);
-
+        replicationManager = rep;
         this.receiver.start(false, new RecordProcessor() {
             @Override
             public void onReceive(ConsumerRecord<String, String> r) {
 
                 String key = r.key();
                 String val = r.value();
+                rep.setVersion(r.offset());
                 Object[] op = json.fromJson(val,Object[].class);
+                System.out.println("ANTES DO switch");
                 String filename;
                 byte[] data;
                 String userId;
@@ -70,6 +73,7 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
                         data = op[1].toString().getBytes();
                         userId = op[2].toString();
                         pass = op[3].toString();
+                        System.out.println("olajhsdjavjsdvja");
                         Result<FileInfo> write = receiverImpl.writeFile(filename, data, userId, pass);
                         sync.setResult(r.offset(), write);
                     }
@@ -126,6 +130,7 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
 
     @Override
     public FileInfo writeFile(Long version, String filename, byte[] data, String userId, String password) {
+        System.out.println("andtes do write");
         return super.repThrow(senderImpl.writeFile(filename,data,userId,password), version);
     }
 

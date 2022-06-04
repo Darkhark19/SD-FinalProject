@@ -68,7 +68,7 @@ public class RepDirectory implements Directory {
 
 
     final KafkaPublisher sender;
-   // final KafkaSubscriber receiver;
+    //final KafkaSubscriber receiver;
     final SyncPoint<String> sync;
     final Gson json;
 
