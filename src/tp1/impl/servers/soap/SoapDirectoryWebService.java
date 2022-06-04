@@ -2,6 +2,7 @@ package tp1.impl.servers.soap;
 
 import static tp1.impl.clients.Clients.FilesClients;
 
+import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -12,13 +13,17 @@ import tp1.api.service.java.Result.ErrorCode;
 import tp1.api.service.soap.DirectoryException;
 import tp1.api.service.soap.SoapDirectory;
 import tp1.impl.servers.common.JavaDirectory;
+import tp1.impl.servers.common.JavaFiles;
+import util.Hash;
+import util.Token;
 
 @WebService(serviceName = SoapDirectory.NAME, targetNamespace = SoapDirectory.NAMESPACE, endpointInterface = SoapDirectory.INTERFACE)
 public class SoapDirectoryWebService extends SoapWebService implements SoapDirectory {
 
 	static Logger Log = Logger.getLogger(SoapDirectoryWebService.class.getName());
-
+	static final String DELIMITER = "?token=";
 	final Directory impl;
+	static final String NEW_DELMITER = "--";
 
 	public SoapDirectoryWebService() {
 		impl = new JavaDirectory();
@@ -67,7 +72,10 @@ public class SoapDirectoryWebService extends SoapWebService implements SoapDirec
 		var res = impl.getFile(filename, userId, accUserId, password);
 		if( res.error() == ErrorCode.REDIRECT) {
 			String location = res.errorValue();
-			res = FilesClients.get( location ).getFile( JavaDirectory.fileId(filename, userId), password);
+			String t = JavaDirectory.fileId(filename,userId) + Token.get();
+			String hashToken = Hash.of(t);
+			String tok = System.currentTimeMillis() + NEW_DELMITER + hashToken;
+			res = FilesClients.get( location ).getFile( JavaDirectory.fileId(filename, userId), tok);
 		}
 		return super.resultOrThrow(res, DirectoryException::new);
 	}

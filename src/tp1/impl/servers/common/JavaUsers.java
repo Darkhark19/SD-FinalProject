@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 import tp1.api.User;
 import tp1.api.service.java.Result;
 import tp1.api.service.java.Users;
+import util.Hash;
 import util.Token;
 
 public class JavaUsers implements Users {
@@ -83,7 +84,10 @@ public class JavaUsers implements Users {
 		else {
 			users.remove(userId);
 			executor.execute(()->{
-				DirectoryClients.get().deleteUserFiles(userId, password, Token.get());
+				String tok = userId + Token.get();
+				String hashToken = Hash.of(tok);
+				DirectoryClients.get().deleteUserFiles(userId, password,
+							System.currentTimeMillis() +JavaFiles.NEW_DELMITER+ hashToken);
 				for( var uri : FilesClients.all())
 					FilesClients.get(uri).deleteUserFiles( userId, password);
 			});

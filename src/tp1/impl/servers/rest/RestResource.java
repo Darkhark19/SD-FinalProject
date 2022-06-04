@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import tp1.api.service.java.Result;
 import tp1.api.service.rest.RestRepDirectory;
+import tp1.impl.servers.common.JavaFiles;
 
 public class RestResource {
 

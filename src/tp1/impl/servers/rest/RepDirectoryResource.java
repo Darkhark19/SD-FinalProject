@@ -33,7 +33,7 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
     private static final String REST = "/rest/";
 
     static final String FROM_BEGINNING = "earliest";
-    static final String TOPIC = "single_partition_topic";
+    public static final String TOPIC = "directory";
     static final String KAFKA_BROKERS = "localhost:9092";
 
     final Directory senderImpl;
@@ -70,14 +70,14 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
                         data = op[1].toString().getBytes();
                         userId = op[2].toString();
                         pass = op[3].toString();
-                        Result<FileInfo> write = senderImpl.writeFile(filename, data, userId, pass);
+                        Result<FileInfo> write = receiverImpl.writeFile(filename, data, userId, pass);
                         sync.setResult(r.offset(), write);
                     }
                     case DELETE -> {
                         filename = op[0].toString();
                         userId = op[1].toString();
                         pass = op[2].toString();
-                        Result<Void> delete = senderImpl.deleteFile(filename, userId, pass);
+                        Result<Void> delete = receiverImpl.deleteFile(filename, userId, pass);
                         sync.setResult(r.offset(), delete);
                     }
                     case GET -> {
@@ -85,7 +85,7 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
                         userId = op[1].toString();
                         accUserId = op[2].toString();
                         pass = op[3].toString();
-                        Result<byte[]> get = senderImpl.getFile(filename, userId, accUserId, pass);
+                        Result<byte[]> get = receiverImpl.getFile(filename, userId, accUserId, pass);
                         sync.setResult(r.offset(), get);
                     }
                     case SHARE -> {
@@ -93,7 +93,7 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
                         userId = op[1].toString();
                         userIdShare = op[2].toString();
                         pass = op[3].toString();
-                        Result<Void> share = senderImpl.shareFile(filename, userId, userIdShare, pass);
+                        Result<Void> share = receiverImpl.shareFile(filename, userId, userIdShare, pass);
                         sync.setResult(r.offset(), share);
                     }
                     case UNSHARE -> {
@@ -101,20 +101,20 @@ public class RepDirectoryResource extends RestResource implements RestRepDirecto
                         userId = op[1].toString();
                         userIdShare = op[2].toString();
                         pass = op[3].toString();
-                        Result<Void> unshare = senderImpl.unshareFile(filename, userId, userIdShare, pass);
+                        Result<Void> unshare = receiverImpl.unshareFile(filename, userId, userIdShare, pass);
                         sync.setResult(r.offset(), unshare);
                     }
                     case LIST -> {
                         userId = op[0].toString();
                         pass = op[1].toString();
-                        Result<List<FileInfo>> list = senderImpl.lsFile(userId, pass);
+                        Result<List<FileInfo>> list = receiverImpl.lsFile(userId, pass);
                         sync.setResult(r.offset(), list);
                     }
                     case DELETES -> {
                         userId = op[0].toString();
                         pass = op[1].toString();
                         String token = op[2].toString();
-                        Result<Void> deletes = senderImpl.deleteUserFiles(userId, pass, token);
+                        Result<Void> deletes = receiverImpl.deleteUserFiles(userId, pass, token);
                         sync.setResult(r.offset(), deletes);
                     }
                     default -> {

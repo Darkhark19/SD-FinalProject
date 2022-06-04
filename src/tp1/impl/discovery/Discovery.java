@@ -34,7 +34,8 @@ public class Discovery {
 	static final InetSocketAddress DISCOVERY_ADDR = new InetSocketAddress("226.226.226.226", 2262);
 
 	final Map<String, Set<URI>> discoveries = new ConcurrentHashMap<>();
-	
+
+
 	static Discovery instance;
 	
 	synchronized public static Discovery getInstance() {
@@ -114,6 +115,19 @@ public class Discovery {
 	public URI[] findUrisOf(String serviceName, int minRepliesNeeded) {
 		//Log.info(String.format("Discovery.findUrisOf( serviceName: %s, minRequired: %d\n", serviceName, minRepliesNeeded));
 		
+		for(;;) {
+			var results = discoveries.get( serviceName );
+			if( results != null && results.size() >= minRepliesNeeded )
+				return results.toArray( new URI[ results.size() ]);
+			else
+				Sleep.ms( DISCOVERY_PERIOD );
+		}
+	}
+
+	public URI[] findUrisAliveOf(String serviceName, int minRepliesNeeded){
+		this.discoveries.clear();
+		new Thread( instance::listener ).start();
+
 		for(;;) {
 			var results = discoveries.get( serviceName );
 			if( results != null && results.size() >= minRepliesNeeded )

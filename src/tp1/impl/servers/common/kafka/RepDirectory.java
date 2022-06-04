@@ -28,12 +28,13 @@ import static tp1.api.service.java.Result.error;
 import static tp1.impl.clients.Clients.UsersClients;
 import tp1.api.service.java.Result.ErrorCode;
 import tp1.impl.servers.common.kafka.sync.SyncPoint;
+import tp1.impl.servers.rest.DirectoryResources;
+import tp1.impl.servers.rest.RepDirectoryResource;
 import util.Token;
 import util.Version;
 
 public class RepDirectory implements Directory {
     static final long USER_CACHE_EXPIRATION = 3000;
-    static final String FROM_BEGINNING = "earliest";
 
     private static final String WRITE = "write";
     private static final String DELETE = "delete";
@@ -63,20 +64,20 @@ public class RepDirectory implements Directory {
     final Map<String, UserFiles> userFiles = new ConcurrentHashMap<>();
     final Map<URI, FileCounts> fileCounts = new ConcurrentHashMap<>();
 
-    static final String KAFKA_BROKERS = "kafka:9092"; // When running in docker container...
+    static final String KAFKA_BROKERS = "localhost:9092"; // When running in docker container...
 
 
     final KafkaPublisher sender;
    // final KafkaSubscriber receiver;
     final SyncPoint<String> sync;
-    final String topic;
     final Gson json;
+
+    final String topic = RepDirectoryResource.TOPIC;
 
     public RepDirectory(){
         sender = KafkaPublisher.createPublisher(KAFKA_BROKERS);
         sync = SyncPoint.getInstance();
-        Version.set(-1L);
-        topic = Token.get();
+        //Version.set(-1L);
         json = new Gson();
         /*topicsList.add(Token.get());
         this.receiver = KafkaSubscriber.createSubscriber(KAFKA_BROKERS, topicsList,FROM_BEGINNING);
