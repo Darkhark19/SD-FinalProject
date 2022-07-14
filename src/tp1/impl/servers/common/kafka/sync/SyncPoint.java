@@ -1,5 +1,7 @@
 package tp1.impl.servers.common.kafka.sync;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,7 @@ public class SyncPoint<T> {
 
 	public SyncPoint() {
 		results = new HashMap<>();
+		version = -1L;
 	}
 
 	/**

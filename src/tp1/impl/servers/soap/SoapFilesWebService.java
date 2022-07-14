@@ -15,7 +15,6 @@ import tp1.impl.servers.common.JavaFiles;
 import tp1.impl.servers.common.dropbox.DropBoxFiles;
 import tp1.impl.servers.common.kafka.KafkaSubscriber;
 import tp1.impl.servers.common.kafka.RecordProcessor;
-import tp1.impl.servers.common.kafka.RepFiles;
 import tp1.impl.servers.common.kafka.sync.SyncPoint;
 
 @WebService(serviceName = SoapFiles.NAME, targetNamespace = SoapFiles.NAMESPACE, endpointInterface = SoapFiles.INTERFACE)
@@ -26,10 +25,9 @@ public class SoapFilesWebService extends SoapWebService implements SoapFiles {
 	private static final String DELETE = "delete";
 	private static final String GET = "get";
 	private static final String DELETES = "deletes";
-	static final String KAFKA_BROKERS = "localhost:9092";
+	static final String KAFKA_BROKERS = "kafka:9092";
 	final Files receiverImpl;
 	public static final String TOPIC = "files";
-	final Files senderImpl;
 	final KafkaSubscriber receiver;
 	final SyncPoint<Object> sync = SyncPoint.getInstance();
 	static final String FROM_BEGINNING = "earliest";
@@ -38,7 +36,6 @@ public class SoapFilesWebService extends SoapWebService implements SoapFiles {
 	public SoapFilesWebService() {
 		receiverImpl = new JavaFiles();
 		json = new Gson();
-		senderImpl = new RepFiles();
 		List<String> topic = new LinkedList<>();
 		topic.add(TOPIC);
 		this.receiver = KafkaSubscriber.createSubscriber(KAFKA_BROKERS, topic,FROM_BEGINNING);

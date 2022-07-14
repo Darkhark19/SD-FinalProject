@@ -14,7 +14,6 @@ import tp1.api.service.rest.RestFiles;
 import tp1.impl.servers.common.JavaFiles;
 import tp1.impl.servers.common.kafka.KafkaSubscriber;
 import tp1.impl.servers.common.kafka.RecordProcessor;
-import tp1.impl.servers.common.kafka.RepFiles;
 import tp1.impl.servers.common.kafka.sync.SyncPoint;
 
 @Singleton
@@ -25,7 +24,7 @@ public class FilesResources extends RestResource implements RestFiles {
 	private static final String DELETE = "delete";
 	private static final String GET = "get";
 	private static final String DELETES = "deletes";
-	static final String KAFKA_BROKERS = "localhost:9092";
+	static final String KAFKA_BROKERS = "kafka:9092";
 	static final String FROM_BEGINNING = "earliest";
 	public static final String TOPIC = "files";
 
@@ -46,19 +45,14 @@ public class FilesResources extends RestResource implements RestFiles {
 
 				String key = r.key();
 				String val = r.value();
-				Object[] op = json.fromJson(val, Object[].class);
-				String fileId;
-				String token;
+				String[] op = json.fromJson(val, String[].class);
 				switch (key){
 					case DELETE :
-						fileId = op[0].toString();
-						token = op[1].toString();
-						Result<Void> delete = receiverImpl.deleteFile(fileId, token);
+						Result<Void> delete = receiverImpl.deleteFile(op[0], op[1]);
 						sync.setResult(r.offset(), delete);
 						break;
 					case DELETES:
-						token = op[1].toString();
-						Result<Void> deletes = receiverImpl.deleteUserFiles(op[0].toString(), token);
+						Result<Void> deletes = receiverImpl.deleteUserFiles(op[0], op[1]);
 						sync.setResult(r.offset(), deletes);
 						break;
 					default:

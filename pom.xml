@@ -7,7 +7,7 @@
 	<version>1.0</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<authors>56726-49545</authors>
+		<authors>56726</authors>
 	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -164,24 +164,6 @@
 				<groupId>org.apache.kafka</groupId>
 				<artifactId>kafka-clients</artifactId>
 				<version>2.8.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId> org.apache.cassandra</groupId>
-				<artifactId>cassandra-all</artifactId>
-				<version>0.8.1</version>
-
-				<exclusions>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>log4j</groupId>
-						<artifactId>log4j</artifactId>
-					</exclusion>
-				</exclusions>
-
 			</dependency>
 
 	</dependencies>

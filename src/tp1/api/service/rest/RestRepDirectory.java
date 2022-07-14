@@ -6,7 +6,7 @@ import tp1.api.FileInfo;
 
 import java.util.List;
 
-
+@Path(RestDirectory.PATH)
 public interface RestRepDirectory {
 
 

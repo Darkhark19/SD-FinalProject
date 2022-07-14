@@ -1,539 +1,0 @@
-SD2122 +++ TP2 +++ Testing image: sd2122-tp1-56726-49545
-Version 03alpha - 29/05/2022
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-1a )	 Testing Docker environment [executing: docker info]
----------------------------------------------------------------
-Docker ID: CR4T:TIJM:GA63:TLRC:ZVWW:PRKA:DEHG:MVC2:MW3O:VTLS:RSSA:P7JA
-OK                                                                                                                   
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-1b )	Testing: Docker engine CPU cores...
----------------------------------------------------------------
-OK                                                                                                                   
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-1c )	Checking trabs.props [executing: docker run sd2122-tp1-56726-49545 /bin/cat trabs.props and nunopreguica/sd2122tpbase]
----------------------------------------------------------------
-; Read properties from: ./trabs.props
-;	DIR_SOAP_SERVER_MAINCLASS=tp1.impl.servers.soap.DirectorySoapServer
-;	DIR_REP_EXTRA_ARGS_OTHER=
-;	DIR_REP_EXTRA_ARGS_FIRST=
-;	USERS_REST_SERVER_MAINCLASS=tp1.impl.servers.rest.UsersRestServer
-;	CLIENT_TRUSTSTORE=client-ts.ks
-;	DIR_EXTRA_ARGS=mysecret
-;	DIR_REST_PORT=4567
-;	USERS_REST_PORT=3456
-;	USERS_EXTRA_ARGS=mysecret
-;	USERS_SERVER_KEYSTORE_PWD=123users
-;	DISCOVERY_MULTICAST_PORT=2262
-;	FILES_SERVER_KEYSTORE=files.ks
-;	DIR_SERVER_KEYSTORE_PWD=123dir
-;	FILES_REST_SERVER_MAINCLASS=tp1.impl.servers.rest.FilesRestServer
-;	USERS_SOAP_SERVER_MAINCLASS=tp1.impl.servers.soap.UsersSoapServer
-;	FILES_PROXY_SERVER_MAINCLASS=tp1.impl.servers.rest.DropboxFilesServer
-;	FILES_REST_PORT=5678
-;	CLIENT_TRUSTSTORE_PWD=changeit
-;	DIR_REP_PORT=4567
-;	DISCOVERY_MULTICAST_IP=226.226.226.226
-;	FILES_SOAP_PORT=15678
-;	FILES_SOAP_SERVER_MAINCLASS=tp1.impl.servers.soap.FilesSoapServer
-;	FILES_EXTRA_ARGS=mysecret
-;	FILES_PROXY_PORT=5678
-;	USERS_SERVER_KEYSTORE=users.ks
-;	DIR_SOAP_PORT=14567
-;	DIR_REST_SERVER_MAINCLASS=tp1.impl.servers.rest.DirectoryRestServer
-;	USERS_SOAP_PORT=13456
-;	DIR_REP_SERVER_MAINCLASS=tp1.impl.servers.rest.RepDirectoryServer
-;	FILES_PROXY_EXTRA_ARGS=mysecret fwjo14ddquw40zm 965qemiiscln90k sl.BImcscMuNOh9pPsx84L88bOeCt98W7cLNnh67m9pWSRbW4lUa2NTx3AlndXgfpt7uizADDSpno5SixEct_PEYqkfu-DZPEM9WYL6kECv9KAreIYSu9T4d0xxo8ENVkNBAecVLRU
-;	DIR_SERVER_KEYSTORE=dir.ks
-;	FILES_SERVER_KEYSTORE_PWD=123files
-OK                                                                                                                   
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-1d )	Checking TLS keys in client truststore
----------------------------------------------------------------
-OK                                                                                                                   
-killByImage(sd2122-tp1-56726-49545): Removing container: [/flamboyant_galois]
-killByImage(sd2122-tp1-56726-49545): Removing container: [/peaceful_pascal]
-killByImage(sd2122-tp1-56726-49545): Removing container: [/amazing_robinson]
-killByImage(sd2122-tp1-56726-49545): Removing container: [/dazzling_volhard]
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-101a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-101b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-102a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-102b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-102c )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-103a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-103b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-104a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-104b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-104c )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-105a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-105b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-106a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-106b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-106c )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-107a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-107b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-107c )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-108a )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-108b )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-108c )	  Skipped...
----------------------------------------------------------------
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-108d )	 Testing Stop & Access & Restart Files server : [1,1,3] REST servers ; [0,0,0] SOAP servers; [0,0,0] PROXY servers
----------------------------------------------------------------
-Starting REST services: Users : <1> replicas : mainClass = <tp1.impl.servers.rest.UsersRestServer> ; TLS : true
-INFO: Starting REST services: Users : <1> replicas : mainClass = <tp1.impl.servers.rest.UsersRestServer> ; TLS : true
-CMD: /usr/bin/docker run --privileged -d --network=sdnet --name users1.ourorg -h users1.ourorg sd2122-tp1-56726-49545 java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/users.ks -Djavax.net.ssl.keyStorePassword=123users -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.UsersRestServer mysecret
-Started: users1.ourorg : java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/users.ks -Djavax.net.ssl.keyStorePassword=123users -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.UsersRestServer mysecret
-5785352f8c1204de66e28dda3227d9fed9580b23ba5fab9bb08011383ecf18f1
-Starting REST services: Directory : <1> replicas : mainClass = <tp1.impl.servers.rest.DirectoryRestServer> ; TLS : true
-INFO: Starting REST services: Directory : <1> replicas : mainClass = <tp1.impl.servers.rest.DirectoryRestServer> ; TLS : true
-CMD: /usr/bin/docker run --privileged -d --network=sdnet --name dir1.ourorg -h dir1.ourorg sd2122-tp1-56726-49545 java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/dir.ks -Djavax.net.ssl.keyStorePassword=123dir -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.DirectoryRestServer mysecret
-Started: dir1.ourorg : java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/dir.ks -Djavax.net.ssl.keyStorePassword=123dir -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.DirectoryRestServer mysecret
-8297b47bc36461468d311d4ebaec36941e134de2329648df8a0498c31231a8e8
-Starting REST services: Files : <3> replicas : mainClass = <tp1.impl.servers.rest.FilesRestServer> ; TLS : true
-INFO: Starting REST services: Files : <3> replicas : mainClass = <tp1.impl.servers.rest.FilesRestServer> ; TLS : true
-CMD: /usr/bin/docker run --privileged -d --network=sdnet --name files1.ourorg -h files1.ourorg sd2122-tp1-56726-49545 java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/files.ks -Djavax.net.ssl.keyStorePassword=123files -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.FilesRestServer mysecret
-Started: files1.ourorg : java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/files.ks -Djavax.net.ssl.keyStorePassword=123files -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.FilesRestServer mysecret
-7b9d64d983e3ccfe9106305a30b87749dd3733d1c2f38f3286369b3ca498c9b5
-sleeping: 9 s                                                                                sleeping: 8 s                                                                                sleeping: 7 s                                                                                sleeping: 6 s                                                                                sleeping: 5 s                                                                                sleeping: 4 s                                                                                sleeping: 3 s                                                                                sleeping: 2 s                                                                                sleeping: 1 s                                                                                sleeping: 0 s                                                                                                                                                                CMD: /usr/bin/docker run --privileged -d --network=sdnet --name files2.ourorg -h files2.ourorg sd2122-tp1-56726-49545 java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/files.ks -Djavax.net.ssl.keyStorePassword=123files -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.FilesRestServer mysecret
-Started: files2.ourorg : java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/files.ks -Djavax.net.ssl.keyStorePassword=123files -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.FilesRestServer mysecret
-2c6748fb1ffd2da69965c4407d7c48b6644740d570db43d5e8fca8a6c15e3266
-CMD: /usr/bin/docker run --privileged -d --network=sdnet --name files3.ourorg -h files3.ourorg sd2122-tp1-56726-49545 java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/files.ks -Djavax.net.ssl.keyStorePassword=123files -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.FilesRestServer mysecret
-Started: files3.ourorg : java --add-opens java.base/java.lang=ALL-UNNAMED -Djavax.net.ssl.keyStore=/home/sd/files.ks -Djavax.net.ssl.keyStorePassword=123files -Djavax.net.ssl.trustStore=/home/sd/client-ts.ks -Djavax.net.ssl.trustStorePassword=changeit -cp /home/sd/sd2122.jar tp1.impl.servers.rest.FilesRestServer mysecret
-2551cf8d197d02b0e9ef6176b316e5af5b3f3f5241c05db57fc6e7e5229e31fd
-sleeping: 9 s                                                                                sleeping: 8 s                                                                                sleeping: 7 s                                                                                sleeping: 6 s                                                                                sleeping: 5 s                                                                                sleeping: 4 s                                                                                sleeping: 3 s                                                                                sleeping: 2 s                                                                                sleeping: 1 s                                                                                sleeping: 0 s                                                                                                                                                                ---------- Creating 5 users
-1/5                                                                                [PostUser https://172.18.0.3:3456/rest] User [email=jackie.rau@ourorg, userId=jackie.rau, fullName=Sergio Cartwright, password=pcfr3k96] -> 200:jackie.rau
-2/5                                                                                [PostUser https://172.18.0.3:3456/rest] User [email=gregory.wiza@ourorg, userId=gregory.wiza, fullName=Cynthia Jenkins, password=i2p8a933fl] -> 200:gregory.wiza
-3/5                                                                                [PostUser https://172.18.0.3:3456/rest] User [email=terence.bartoletti@ourorg, userId=terence.bartoletti, fullName=Duncan Rau, password=9ckdkq2g5v64p] -> 200:terence.bartoletti
-4/5                                                                                [PostUser https://172.18.0.3:3456/rest] User [email=dillon.bayer@ourorg, userId=dillon.bayer, fullName=Miyoko Hayes, password=gm7h08scerl0y] -> 200:dillon.bayer
-5/5                                                                                [PostUser https://172.18.0.3:3456/rest] User [email=digna.hilll@ourorg, userId=digna.hilll, fullName=Burl Schaden, password=jazhvzdqm4u5] -> 200:digna.hilll
-sleeping: 9 s                                                                                sleeping: 8 s                                                                                sleeping: 7 s                                                                                sleeping: 6 s                                                                                sleeping: 5 s                                                                                sleeping: 4 s                                                                                sleeping: 3 s                                                                                sleeping: 2 s                                                                                sleeping: 1 s                                                                                sleeping: 0 s                                                                                                                                                                ---------- Writing 12 new files
-1/12                                                                                [WriteFile https://172.18.0.4:4567/rest] jackie.rau, occaecati.xlsx, pcfr3k96, e74c4d378a -> 200:FileInfo [owner=jackie.rau, filename=occaecati.xlsx, fileURL=https://172.18.0.7:5678/rest/files/jackie.rau$$$occaecati.xlsx, sharedWith=[]]
-2/12                                                                                [WriteFile https://172.18.0.4:4567/rest] gregory.wiza, consectetur.js, i2p8a933fl, f99d2a7146 -> 200:FileInfo [owner=gregory.wiza, filename=consectetur.js, fileURL=https://172.18.0.7:5678/rest/files/gregory.wiza$$$consectetur.js, sharedWith=[]]
-3/12                                                                                [WriteFile https://172.18.0.4:4567/rest] terence.bartoletti, ducimus.doc, 9ckdkq2g5v64p, 0023eed256 -> 200:FileInfo [owner=terence.bartoletti, filename=ducimus.doc, fileURL=https://172.18.0.7:5678/rest/files/terence.bartoletti$$$ducimus.doc, sharedWith=[]]
-4/12                                                                                [WriteFile https://172.18.0.4:4567/rest] dillon.bayer, voluptas.flac, gm7h08scerl0y, 62b1b9aa40 -> 200:FileInfo [owner=dillon.bayer, filename=voluptas.flac, fileURL=https://172.18.0.7:5678/rest/files/dillon.bayer$$$voluptas.flac, sharedWith=[]]
-5/12                                                                                [WriteFile https://172.18.0.4:4567/rest] jackie.rau, porro.csv, pcfr3k96, 345ba9455f -> 200:FileInfo [owner=jackie.rau, filename=porro.csv, fileURL=https://172.18.0.7:5678/rest/files/jackie.rau$$$porro.csv, sharedWith=[]]
-6/12                                                                                [WriteFile https://172.18.0.4:4567/rest] digna.hilll, fugiat.gif, jazhvzdqm4u5, b4984dad7f -> 200:FileInfo [owner=digna.hilll, filename=fugiat.gif, fileURL=https://172.18.0.7:5678/rest/files/digna.hilll$$$fugiat.gif, sharedWith=[]]
-7/12                                                                                [WriteFile https://172.18.0.4:4567/rest] gregory.wiza, blanditiis.pages, i2p8a933fl, 55b6aadbbc -> 200:FileInfo [owner=gregory.wiza, filename=blanditiis.pages, fileURL=https://172.18.0.7:5678/rest/files/gregory.wiza$$$blanditiis.pages, sharedWith=[]]
-8/12                                                                                [WriteFile https://172.18.0.4:4567/rest] digna.hilll, facere.xls, jazhvzdqm4u5, 4f1897774f -> 200:FileInfo [owner=digna.hilll, filename=facere.xls, fileURL=https://172.18.0.7:5678/rest/files/digna.hilll$$$facere.xls, sharedWith=[]]
-9/12                                                                                [WriteFile https://172.18.0.4:4567/rest] gregory.wiza, cumque.bmp, i2p8a933fl, 59e6491598 -> 200:FileInfo [owner=gregory.wiza, filename=cumque.bmp, fileURL=https://172.18.0.7:5678/rest/files/gregory.wiza$$$cumque.bmp, sharedWith=[]]
-10/12                                                                                [WriteFile https://172.18.0.4:4567/rest] jackie.rau, qui.xlsx, pcfr3k96, e60cb24859 -> 200:FileInfo [owner=jackie.rau, filename=qui.xlsx, fileURL=https://172.18.0.7:5678/rest/files/jackie.rau$$$qui.xlsx, sharedWith=[]]
-11/12                                                                                [WriteFile https://172.18.0.4:4567/rest] terence.bartoletti, temporibus.webm, 9ckdkq2g5v64p, d0e02ce5bb -> 200:FileInfo [owner=terence.bartoletti, filename=temporibus.webm, fileURL=https://172.18.0.7:5678/rest/files/terence.bartoletti$$$temporibus.webm, sharedWith=[]]
-12/12                                                                                [WriteFile https://172.18.0.4:4567/rest] gregory.wiza, magnam.odt, i2p8a933fl, 09318244c4 -> 200:FileInfo [owner=gregory.wiza, filename=magnam.odt, fileURL=https://172.18.0.7:5678/rest/files/gregory.wiza$$$magnam.odt, sharedWith=[]]
-sleeping: 9 s                                                                                sleeping: 8 s                                                                                sleeping: 7 s                                                                                sleeping: 6 s                                                                                sleeping: 5 s                                                                                sleeping: 4 s                                                                                sleeping: 3 s                                                                                sleeping: 2 s                                                                                sleeping: 1 s                                                                                sleeping: 0 s                                                                                                                                                                ---------- Getting 12 files
-[GetFile https://172.18.0.4:4567/rest; redirect = true; retry = false] occaecati.xlsx, jackie.rau, jackie.rau, pcfr3k96 -> 500
-TestFailedException: GetFile : jackie.rau/occaecati.xlsx ; accUserId = jackie.rau ; pwd = pcfr3k96
-Expected : 200; received : 500
-	at tp1.SiteState.execGetFile(SiteState.java:507)
-	at tp1.SiteState.execGetFile(SiteState.java:489)
-	at tests.FilesTest.execGetFile(FilesTest.java:465)
-	at tests.FilesTest.execGetFile(FilesTest.java:459)
-	at tests.workloads.StopRestartAllFilesMixWorkload.execute(StopRestartAllFilesMixWorkload.java:67)
-	at tests.BaseTest.test(BaseTest.java:221)
-	at tests.Tester.lambda$main$68(Tester.java:271)
-	at tests.Tester.doRun(Tester.java:453)
-	at tests.Tester.main(Tester.java:271)
-FAILED: GetFile : jackie.rau/occaecati.xlsx ; accUserId = jackie.rau ; pwd = pcfr3k96
-Expected : 200; received : 500
-
-
-Removing: users1.ourorg
-Removing: dir1.ourorg
-Removing: files1.ourorg
------------------------------------------------------------------------------------
-users1.ourorg
------------------------------------------------------------------------------------
-mysecret
->>>>>3456
-INFO: users Server ready @ https://172.18.0.3:3456/rest
-
-INFO: Starting Discovery announcements on: /226.226.226.226:2262 for: users -> https://172.18.0.3:3456/rest
-
-INFO: HTTP REQUEST :  - Path: users - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/json], Content-length=[104]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/json], Content-length=[108]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/json], Content-length=[118]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/json], Content-length=[108]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/json], Content-length=[105]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users/jackie.rau - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users/gregory.wiza - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users/terence.bartoletti - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users/dillon.bayer - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users/digna.hilll - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: users/jackie.rau - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.3:3456], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)]}
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-
------------------------------------------------------------------------------------
-dir1.ourorg
------------------------------------------------------------------------------------
-mysecret
->>>>>4567
-INFO: directory Server ready @ https://172.18.0.4:4567/rest
-
-INFO: Starting Discovery announcements on: /226.226.226.226:2262 for: directory -> https://172.18.0.4:4567/rest
-
-INFO: HTTP REQUEST :  - Path: dir/jackie.rau/occaecati.xlsx - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/gregory.wiza/consectetur.js - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/terence.bartoletti/ducimus.doc - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/dillon.bayer/voluptas.flac - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/jackie.rau/porro.csv - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/digna.hilll/fugiat.gif - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/gregory.wiza/blanditiis.pages - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/digna.hilll/facere.xls - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/gregory.wiza/cumque.bmp - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/jackie.rau/qui.xlsx - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], ContRemoving: files2.ourorg
-Removing: files3.ourorg
-ent-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/terence.bartoletti/temporibus.webm - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/gregory.wiza/magnam.odt - Header: {Accept=[application/json], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: Candidate files servers: [https://172.18.0.6:5678/rest, https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest]
-
-INFO: HTTP RESPONSE : 200 Header: {Content-Type=[application/json]}
-
-INFO: HTTP REQUEST :  - Path: dir/jackie.rau/occaecati.xlsx - Header: {Accept=[application/octet-stream], Connection=[keep-alive], Host=[172.18.0.4:4567], User-agent=[Jersey/2.30.1 (HttpUrlConnection 1.8.0_332)]}
-
-INFO: Candidate files servers: [https://172.18.0.7:5678/rest, https://172.18.0.5:5678/rest, https://172.18.0.6:5678/rest]
-
-jakarta.ws.rs.WebApplicationException: HTTP 500 Internal Server Error
-	at tp1.impl.servers.rest.RestResource.resultOrThrow(RestResource.java:21)
-	at tp1.impl.servers.rest.DirectoryResources.getFile(DirectoryResources.java:69)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory.lambda$static$0(ResourceMethodInvocationHandlerFactory.java:52)
-	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher$1.run(AbstractJavaResourceMethodDispatcher.java:124)
-	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.invoke(AbstractJavaResourceMethodDispatcher.java:167)
-	at org.glassfish.jersey.server.model.internal.JavaResourceMethodDispatcherProvider$TypeOutInvoker.doDispatch(JavaResourceMethodDispatcherProvider.java:219)
-	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.dispatch(AbstractJavaResourceMethodDispatcher.java:79)
-	at org.glassfish.jersey.server.model.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:475)
-	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:397)
-	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:81)
-	at org.glassfish.jersey.server.ServerRuntime$1.run(ServerRuntime.java:255)
-	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:248)
-	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:244)
-	at org.glassfish.jersey.internal.Errors.process(Errors.java:292)
-	at org.glassfish.jersey.internal.Errors.process(Errors.java:274)
-	at org.glassfish.jersey.internal.Errors.process(Errors.java:244)
-	at org.glassfish.jersey.process.internal.RequestScope.runInScope(RequestScope.java:265)
-	at org.glassfish.jersey.server.ServerRuntime.process(ServerRuntime.java:234)
-	at org.glassfish.jersey.server.ApplicationHandler.handle(ApplicationHandler.java:684)
-	at org.glassfish.jersey.jdkhttp.JdkHttpHandlerContainer.handle(JdkHttpHandlerContainer.java:135)
-	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:95)
-	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:82)
-	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
-	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:733)
-	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:95)
-	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:698)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-INFO: HTTP RESPONSE : 500 Header: {}
-
-
------------------------------------------------------------------------------------
-files1.ourorg
------------------------------------------------------------------------------------
-mysecret
->>>>>5678
-INFO: files Server ready @ https://172.18.0.5:5678/rest
-
-INFO: Starting Discovery announcements on: /226.226.226.226:2262 for: files -> https://172.18.0.5:5678/rest
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$occaecati.xlsx - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$consectetur.js - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/terence.bartoletti$$$ducimus.doc - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/dillon.bayer$$$voluptas.flac - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$porro.csv - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/digna.hilll$$$fugiat.gif - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$blanditiis.pages - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/digna.hilll$$$facere.xls - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$cumque.bmp - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$qui.xlsx - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/terence.bartoletti$$$temporibus.webm - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$magnam.odt - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.5:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-
------------------------------------------------------------------------------------
-files2.ourorg
------------------------------------------------------------------------------------
-mysecret
->>>>>5678
-INFO: files Server ready @ https://172.18.0.6:5678/rest
-
-INFO: Starting Discovery announcements on: /226.226.226.226:2262 for: files -> https://172.18.0.6:5678/rest
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$occaecati.xlsx - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$consectetur.js - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/terence.bartoletti$$$ducimus.doc - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/dillon.bayer$$$voluptas.flac - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$porro.csv - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/digna.hilll$$$fugiat.gif - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$blanditiis.pages - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/digna.hilll$$$facere.xls - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$cumque.bmp - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$qui.xlsx - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/terence.bartoletti$$$temporibus.webm - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$magnam.odt - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.6:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-
------------------------------------------------------------------------------------
-files3.ourorg
------------------------------------------------------------------------------------
-mysecret
->>>>>5678
-INFO: files Server ready @ https://172.18.0.7:5678/rest
-
-INFO: Starting Discovery announcements on: /226.226.226.226:2262 for: files -> https://172.18.0.7:5678/rest
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$occaecati.xlsx - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$consectetur.js - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/terence.bartoletti$$$ducimus.doc - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/dillon.bayer$$$voluptas.flac - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$porro.csv - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/digna.hilll$$$fugiat.gif - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$blanditiis.pages - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/digna.hilll$$$facere.xls - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$cumque.bmp - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/jackie.rau$$$qui.xlsx - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/terence.bartoletti$$$temporibus.webm - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-INFO: HTTP REQUEST :  - Path: files/gregory.wiza$$$magnam.odt - Header: {Accept=[text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2], Connection=[keep-alive], Host=[172.18.0.7:5678], User-agent=[Jersey/3.0.4 (HttpUrlConnection 17.0.2)], Content-type=[application/octet-stream], Content-length=[4096]}
-
-INFO: HTTP RESPONSE : 204 Header: {}
-
-
-
-
-Continue (Y/N) ?
-
-Exiting...

@@ -21,7 +21,6 @@ public class DropboxFilesResource extends RestResource implements RestFiles {
     @Override
     public void writeFile(String fileId, byte[] data, String token) {
         //Log.info(String.format("DB writeFile: fileId = %s, data.length = %d, token = %s \n", fileId, data.length, token));
-
         super.resultOrThrow( impl.writeFile(fileId, data, token));
     }
 

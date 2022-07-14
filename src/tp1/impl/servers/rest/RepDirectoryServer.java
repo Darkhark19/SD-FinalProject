@@ -24,7 +24,7 @@ public class RepDirectoryServer extends AbstractRestServer{
     @Override
     void registerResources(ResourceConfig config) {
         ReplicationManager repManager = new ReplicationManager();
-        config.register( RepDirectoryResource.class );
+        config.register( new RepDirectoryResource(repManager) );
         config.register(new VersionFilter(repManager));
         config.register( GenericExceptionMapper.class );
         config.register( CustomLoggingFilter.class);

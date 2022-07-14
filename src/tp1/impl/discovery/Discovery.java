@@ -9,10 +9,8 @@ import java.net.MulticastSocket;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Set;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
@@ -34,7 +32,7 @@ public class Discovery {
 	static final InetSocketAddress DISCOVERY_ADDR = new InetSocketAddress("226.226.226.226", 2262);
 
 	final Map<String, Set<URI>> discoveries = new ConcurrentHashMap<>();
-
+	//private Map<String, Map<URI,Long>> discoveries = new ConcurrentHashMap<>();
 
 	static Discovery instance;
 	
@@ -42,6 +40,7 @@ public class Discovery {
 		if( instance == null ) {
 			instance = new Discovery();
 			new Thread( instance::listener ).start();
+			//new Thread(instance::clearEntries).start();
 		}
 		return instance;
 	}
@@ -93,28 +92,66 @@ public class Discovery {
 					
 					var tokens = new String(pkt.getData(), 0, pkt.getLength()).split(DELIMITER);
 					Log.finest( "Received: " + Arrays.asList(tokens) + "\n");
-					
 					if (tokens.length == 2) {
-						
+
 						var name = tokens[0];
 						var uri = URI.create( tokens[1]);
-						
+
 						discoveries.computeIfAbsent(name, (k) -> ConcurrentHashMap.newKeySet()).add( uri );
 					}
+					/*if (tokens.length == 2) {
+
+						Map<URI, Long> list = discoveries.get(tokens[0]);
+						if (list == null) {
+							list = new ConcurrentHashMap<>();
+						}
+						list.put(new URI(tokens[1]), System.currentTimeMillis());
+						discoveries.put(tokens[0], list);
+					}*/
 				} catch (IOException e) {
 					Sleep.ms(DISCOVERY_PERIOD);
+					/*for(Map<URI,Long> list : discoveries.values()) {
+						for (Map.Entry<URI, Long> entry : list.entrySet()) {
+							if (System.currentTimeMillis() - entry.getValue() > DISCOVERY_PERIOD)
+								list.remove(entry.getKey());
+						}
+					}*/
 					Log.finest("Still listening...");
 				}
 			}
-		} catch (IOException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+	/*public void clearEntries(){
+		for(;;){
+				for(Map<URI, Long> map : discoveries.values()){
+					for(Map.Entry<URI,Long> entry : map.entrySet()){
+						if(System.currentTimeMillis() - entry.getValue() > DISCOVERY_PERIOD )
+							map.remove(entry.getKey());
+					}
+				}
+
+		}
+	}*/
 	public URI[] findUrisOf(String serviceName, int minRepliesNeeded) {
 		//Log.info(String.format("Discovery.findUrisOf( serviceName: %s, minRequired: %d\n", serviceName, minRepliesNeeded));
-		
+
+		/*Map<URI,Long> m = discoveries.get(serviceName);
+		for(;;) {
+			if (m != null ) {
+				var p = m.keySet();
+				if(p.size() >= minRepliesNeeded)
+					return p.toArray(new URI[p.size()]);
+				else
+					try {
+						Thread.sleep(DISCOVERY_PERIOD);
+					} catch (InterruptedException e1) {
+						// do nothing
+					}
+			}
+		}*/
 		for(;;) {
 			var results = discoveries.get( serviceName );
 			if( results != null && results.size() >= minRepliesNeeded )
@@ -126,15 +163,7 @@ public class Discovery {
 
 	public URI[] findUrisAliveOf(String serviceName, int minRepliesNeeded){
 		this.discoveries.clear();
-		new Thread( instance::listener ).start();
-
-		for(;;) {
-			var results = discoveries.get( serviceName );
-			if( results != null && results.size() >= minRepliesNeeded )
-				return results.toArray( new URI[ results.size() ]);
-			else
-				Sleep.ms( DISCOVERY_PERIOD );
-		}
+		return findUrisOf(serviceName,minRepliesNeeded);
 	}
 
 	static private void joinGroupInAllInterfaces(MulticastSocket ms) throws SocketException {

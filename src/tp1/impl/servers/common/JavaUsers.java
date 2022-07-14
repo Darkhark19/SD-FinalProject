@@ -9,22 +9,27 @@ import static tp1.api.service.java.Result.ErrorCode.NOT_FOUND;
 import static tp1.impl.clients.Clients.DirectoryClients;
 import static tp1.impl.clients.Clients.FilesClients;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.google.gson.Gson;
 import tp1.api.User;
 import tp1.api.service.java.Result;
 import tp1.api.service.java.Users;
+import tp1.impl.servers.common.kafka.KafkaPublisher;
+import tp1.impl.servers.rest.FilesResources;
 import util.Hash;
 import util.Token;
 
 public class JavaUsers implements Users {
+	static final String KAFKA_BROKERS = "kafka:9092";
 	final protected Map<String, User> users = new ConcurrentHashMap<>();
 	final ExecutorService executor = Executors.newCachedThreadPool();
-	
+	final KafkaPublisher filesPub = KafkaPublisher.createPublisher(KAFKA_BROKERS);
 	@Override
 	public Result<String> createUser(User user) {
 		if( badUser(user ))
@@ -86,10 +91,15 @@ public class JavaUsers implements Users {
 			executor.execute(()->{
 				String tok = userId + Token.get();
 				String hashToken = Hash.of(tok);
-				DirectoryClients.get().deleteUserFiles(userId, password,
-							System.currentTimeMillis() +JavaFiles.NEW_DELMITER+ hashToken);
-				for( var uri : FilesClients.all())
-					FilesClients.get(uri).deleteUserFiles( userId, password);
+				String token = System.currentTimeMillis() +JavaFiles.NEW_DELMITER+ hashToken;
+				DirectoryClients.get().deleteUserFiles(userId, password,token);
+				for( var uri : FilesClients.all()) {
+					FilesClients.get(uri).deleteUserFiles(userId, token);
+
+					String[] value = {userId,token};
+					//FilesClients.get(entry.getKey()).deleteFile(fileId, tok);
+					filesPub.publish(FilesResources.TOPIC, "deletes",(new Gson()).toJson(value));
+				}
 			});
 			return ok(user);
 		}

@@ -35,76 +35,78 @@ public class JavaFiles implements Files {
     @Override
     public Result<byte[]> getFile(String fileId, String token) {
         String[] t = token.split(NEW_DELMITER);//t //t[0] == time t[1] == h(m+k)
-        if (System.currentTimeMillis() - Long.parseLong(t[0]) < TOKEN_TIME) {
-            String tok = fileId + this.token;
-            String hashToken = Hash.of(tok);
-            if (hashToken.equals(t[1])) {
-                fileId = fileId.replace(DELIMITER, "/");
-                byte[] data = IO.read(new File(ROOT + fileId));
-                return data != null ? ok(data) : error(NOT_FOUND);
-            }
+        String tok = fileId + this.token;
+        String hashToken = Hash.of(tok);
+        if (System.currentTimeMillis() - Long.parseLong(t[0]) >= TOKEN_TIME) {
             return error(FORBIDDEN);
+        } else if (!hashToken.equals(t[1])) {
+            return error(FORBIDDEN);
+        } else {
+            fileId = fileId.replace(DELIMITER, "/");
+            byte[] data = IO.read(new File(ROOT + fileId));
+            return data != null ? ok(data) : error(NOT_FOUND);
         }
-        return error(BAD_REQUEST);
     }
+
 
     @Override
     public Result<Void> deleteFile(String fileId, String token) {
-        String[] t = token.split(NEW_DELMITER);//t[0] = m , //t[1] == time t[2] == h(m+k)
-
-        if (System.currentTimeMillis() - Long.parseLong(t[0]) < TOKEN_TIME) {
-            String tok = fileId + this.token;
-            String hashToken = Hash.of(tok);
-            if (hashToken.equals(t[1])) {
-                fileId = fileId.replace(DELIMITER, "/");
-                boolean res = IO.delete(new File(ROOT + fileId));
-                return res ? ok() : error(NOT_FOUND);
-            }
+        String[] t = token.split(NEW_DELMITER);//t //t[0] == time t[1] == h(m+k)
+        String tok = fileId + this.token;
+        String hashToken = Hash.of(tok);
+        if (System.currentTimeMillis() - Long.parseLong(t[0]) >= TOKEN_TIME) {
             return error(FORBIDDEN);
+        } else if (!hashToken.equals(t[1])) {
+            return error(FORBIDDEN);
+        } else {
+            fileId = fileId.replace(DELIMITER, "/");
+            boolean res = IO.delete(new File(ROOT + fileId));
+            return res ? ok() : error(NOT_FOUND);
         }
-        return error(BAD_REQUEST);
     }
 
     @Override
     public Result<Void> writeFile(String fileId, byte[] data, String token) {
-        String[] t = token.split(NEW_DELMITER);//t[0] = m , //t[0] == time t[1] == h(m+k)
-        if (System.currentTimeMillis() - Long.parseLong(t[0]) < TOKEN_TIME) {
-            String tok = fileId + this.token;
-            String hashToken = Hash.of(tok);
-            if (hashToken.equals(t[1])) {
-                fileId = fileId.replace(DELIMITER, "/");
-                File file = new File(ROOT + fileId);
-                file.getParentFile().mkdirs();
-                IO.write(file, data);
-                return ok();
-            }
+        String[] t = token.split(NEW_DELMITER);//t //t[0] == time t[1] == h(m+k)
+        String tok = fileId + this.token;
+        String hashToken = Hash.of(tok);
+        if (System.currentTimeMillis() - Long.parseLong(t[0]) >= TOKEN_TIME) {
             return error(FORBIDDEN);
+        } else if (!hashToken.equals(t[1])) {
+            return error(FORBIDDEN);
+        } else {
+            fileId = fileId.replace(DELIMITER, "/");
+            File file = new File(ROOT + fileId);
+            file.getParentFile().mkdirs();
+            IO.write(file, data);
+            return ok();
         }
-        return error(BAD_REQUEST);
+
     }
 
     @Override
     public Result<Void> deleteUserFiles(String userId, String token) {
         String[] t = token.split(NEW_DELMITER);//t[0] = m , //t[1] == time t[2] == h(m+k)
-        if (System.currentTimeMillis() - Long.parseLong(t[0]) < TOKEN_TIME) {
-            String tok = userId + this.token;
-            String hashToken = Hash.of(tok);
-            if (hashToken.equals(t[1])) {
-                File file = new File(ROOT + userId);
-                try {
-                    java.nio.file.Files.walk(file.toPath())
-                            .sorted(Comparator.reverseOrder())
-                            .map(Path::toFile)
-                            .forEach(File::delete);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return error(INTERNAL_ERROR);
-                }
-                return ok();
-            }
+        String tok = userId + this.token;
+        String hashToken = Hash.of(tok);
+        if (System.currentTimeMillis() - Long.parseLong(t[0]) >= TOKEN_TIME) {
             return error(FORBIDDEN);
+        } else if (!hashToken.equals(t[1])) {
+            return error(FORBIDDEN);
+        } else {
+            File file = new File(ROOT + userId);
+            try {
+                java.nio.file.Files.walk(file.toPath())
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return error(INTERNAL_ERROR);
+            }
+            return ok();
         }
-        return error(BAD_REQUEST);
+
     }
 
     public static String fileId(String filename, String userId) {

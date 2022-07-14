@@ -58,9 +58,6 @@ public class DropBoxFiles implements Files {
 
     public DropBoxFiles(boolean flag, String key, String secret, String token) {
         json = new Gson();
-        /*this.accessTokenStr = token;
-        this.apiKey = key;
-        this.apiSecret = secret;*/
         accessToken = new OAuth2AccessToken(token);
         service = new ServiceBuilder(key).apiSecret(secret).build(DropboxApi20.INSTANCE);
 
@@ -96,6 +93,7 @@ public class DropBoxFiles implements Files {
 
     @Override
     public Result<Void> writeFile(String fileId, byte[] data, String token) {
+        String filename = fileId;
         fileId = fileId.replace(DELIMITER, "/");
         var createFile = new OAuthRequest(Verb.POST, UPLOAD_FILE_URL);
         createFile.addHeader(CONTENT_TYPE_HDR, OCTET_STREAM_CONTENT_TYPE);
@@ -104,11 +102,12 @@ public class DropBoxFiles implements Files {
                 new CreateFileArgs(ROOT + fileId, OVERWRITE, false, false, false)));
 
         createFile.setPayload(json.toJson(data).getBytes());
-        return execute(createFile,fileId, token);
+        return execute(createFile, filename, token);
     }
 
     @Override
     public Result<byte[]> getFile(String fileId, String token) {
+        String filename = fileId;
         fileId = fileId.replace(DELIMITER, "/");
         OAuthRequest getFile = new OAuthRequest(Verb.POST, DOWNLOAD_URL);
         getFile.addHeader(CONTENT_TYPE_HDR, OCTET_STREAM_CONTENT_TYPE);
@@ -117,7 +116,7 @@ public class DropBoxFiles implements Files {
         try {
             String[] t = token.split(NEW_DELMITER);
             if (System.currentTimeMillis() - Long.parseLong(t[0]) < TOKEN_TIME) {
-                String tok = fileId + this.token;
+                String tok = filename + this.token;
                 String hashToken = Hash.of(tok);
                 if (hashToken.equals(t[1])) {
                     Response r = service.execute(getFile);
@@ -139,13 +138,14 @@ public class DropBoxFiles implements Files {
 
     @Override
     public Result<Void> deleteFile(String fileId, String token) {
+        String filename = fileId;
         fileId = fileId.replace(DELIMITER, "/");
         var delete = new OAuthRequest(Verb.POST, DELETE_V2_URL);
         delete.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
 
         delete.setPayload(json.toJson(new PathArgs(ROOT + fileId)));
 
-        return execute(delete,fileId, token);
+        return execute(delete, filename, token);
     }
 
 
@@ -158,42 +158,40 @@ public class DropBoxFiles implements Files {
 
         service.signRequest(accessToken, listDirectory);
         try {
-            String[] t = token.split(NEW_DELMITER);//t //t[0] == time t[1] == h(m+k)
-            if (System.currentTimeMillis() - Long.parseLong(t[0]) < TOKEN_TIME) {
-                String tok = userId + this.token;
-                String hashToken = Hash.of(tok);
-                if (hashToken.equals(t[1])) {
-                    Response r = service.execute(listDirectory);
+            String[] t = token.split(NEW_DELMITER);//t[0] = m , //t[0] == time t[1] == h(m+k)
+            String tok = userId + this.token;
+            String hashToken = Hash.of(tok);
+            if (System.currentTimeMillis() - Long.parseLong(t[0]) > TOKEN_TIME) {
+                return error(BAD_REQUEST);
+            } else if (!hashToken.equals(t[1])) {
+                return Result.error(Result.ErrorCode.FORBIDDEN);
+            } else {
+                Response r = service.execute(listDirectory);
+
+                if (r.getCode() != Status.OK.getStatusCode())
+                    return Result.error(statusToErrorCode(Status.fromStatusCode(r.getCode())));
+
+                var reply = json.fromJson(r.getBody(), ListFolderReturn.class);
+                reply.getEntries().forEach(e -> directoryContents.add(e.toString()));
+
+                while (reply.has_more()) {
+                    listDirectory = new OAuthRequest(Verb.POST, LIST_FOLDER_CONTINUE_URL);
+                    listDirectory.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
+
+                    // In this case the arguments is just an object containing the cursor that was
+                    // returned in the previous reply.
+                    listDirectory.setPayload(json.toJson(new ListFolderContinueArgs(reply.getCursor())));
+                    service.signRequest(accessToken, listDirectory);
+
+                    r = service.execute(listDirectory);
 
                     if (r.getCode() != Status.OK.getStatusCode())
                         return Result.error(statusToErrorCode(Status.fromStatusCode(r.getCode())));
 
-                    var reply = json.fromJson(r.getBody(), ListFolderReturn.class);
+                    reply = json.fromJson(r.getBody(), ListFolderReturn.class);
                     reply.getEntries().forEach(e -> directoryContents.add(e.toString()));
 
-                    while (reply.has_more()) {
-                        listDirectory = new OAuthRequest(Verb.POST, LIST_FOLDER_CONTINUE_URL);
-                        listDirectory.addHeader(CONTENT_TYPE_HDR, JSON_CONTENT_TYPE);
-
-                        // In this case the arguments is just an object containing the cursor that was
-                        // returned in the previous reply.
-                        listDirectory.setPayload(json.toJson(new ListFolderContinueArgs(reply.getCursor())));
-                        service.signRequest(accessToken, listDirectory);
-
-                        r = service.execute(listDirectory);
-
-                        if (r.getCode() != Status.OK.getStatusCode())
-                            return Result.error(statusToErrorCode(Status.fromStatusCode(r.getCode())));
-
-                        reply = json.fromJson(r.getBody(), ListFolderReturn.class);
-                        reply.getEntries().forEach(e -> directoryContents.add(e.toString()));
-
-                    }
-                } else {
-                    return Result.error(Result.ErrorCode.FORBIDDEN);
                 }
-            } else {
-                return error(BAD_REQUEST);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -217,28 +215,27 @@ public class DropBoxFiles implements Files {
         return userId + DELIMITER + filename;
     }
 
-    private <T> Result<T> execute(OAuthRequest request,String fileId, String token) {
-        String[] t = token.split(NEW_DELMITER);//t[0] = m , //t[0] == time t[1] == h(m+k)
-        if (System.currentTimeMillis() - Long.parseLong(t[0]) < TOKEN_TIME) {
-            String tok = fileId + this.token;
-            String hashToken = Hash.of(tok);
-            if (hashToken.equals(t[1])) {
-
-                service.signRequest(accessToken, request);
-                try {
-                    Response r = service.execute(request);
-
-                    if (r.getCode() != Status.OK.getStatusCode())
-                        return Result.error(statusToErrorCode(Status.fromStatusCode(r.getCode())));
-                    return Result.ok();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return Result.error(Result.ErrorCode.INTERNAL_ERROR);
-                }
-            }
+    private <T> Result<T> execute(OAuthRequest request, String filename, String token) {
+        String[] t = token.split(NEW_DELMITER);//t[0] == time t[1] == h(m+k)
+        String tok = filename + this.token;
+        String hashToken = Hash.of(tok);
+        if (System.currentTimeMillis() - Long.parseLong(t[0]) > TOKEN_TIME) {
+            return error(BAD_REQUEST);
+        } else if (!hashToken.equals(t[1])) {
             return Result.error(Result.ErrorCode.FORBIDDEN);
+        } else {
+            service.signRequest(accessToken, request);
+            try {
+                Response r = service.execute(request);
+                if (r.getCode() != Status.OK.getStatusCode())
+                    return Result.error(statusToErrorCode(Status.fromStatusCode(r.getCode())));
+                return Result.ok();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return Result.error(Result.ErrorCode.INTERNAL_ERROR);
+            }
         }
-        return error(BAD_REQUEST);
+
 
     }
 

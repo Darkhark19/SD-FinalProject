@@ -3,8 +3,6 @@ package tp1.impl.servers.common.kafka;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
-import org.apache.cassandra.streaming.ReplicationFinishedVerbHandler;
-import tp1.api.service.rest.RestDirectory;
 import tp1.api.service.rest.RestRepDirectory;
 
 import java.io.IOException;
